@@ -1,11 +1,7 @@
 import type { Route } from "./+types/home";
 import { NavLink } from "react-router";
 import { Layout } from "~/ui/layout";
-import {
-  AboutSection,
-  ContactSection,
-  ExperienceSection,
-} from "~/ui/sections";
+import { AboutSection, ContactSection, ExperienceSection } from "~/ui/sections";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,12 +18,19 @@ export default function Home() {
     <Layout>
       <section className="hero-section" id="home">
         <div className="hero-copy">
-          <p className="eyebrow">Available for new opportunities</p>
-          <h1>Hi, I am a React developer building polished web experiences.</h1>
+          <p className="eyebrow">Available for full-time / contract roles</p>
+
+          <h1>
+            Hi, I'm <span className="text-[#245d63]">Myo Htet</span>
+          </h1>
+
           <p className="hero-text">
-            I create responsive, accessible, and maintainable interfaces that
-            help people understand products quickly and use them with confidence.
+            Full Stack Developer specializing in Laravel, PHP, React, and React
+            Native (Expo). I build scalable web and mobile systems including POS
+            platforms, business tools, and dashboards with a focus on clean
+            architecture, performance, and maintainability.
           </p>
+
           <div className="hero-actions">
             <NavLink className="button primary" to="/contact">
               Contact me
@@ -36,12 +39,46 @@ export default function Home() {
               View experience
             </NavLink>
           </div>
+
+          <div className="flex gap-4 italic underline pt-2 mt-2">
+            <a
+              href="https://github.com/myohtet003"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+            >
+              Github
+            </a>
+            <a
+              href="https://www.linkedin.com/in/myo-htet-154a57223/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="/myo htet kyaw.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+            >
+              Resume
+            </a>
+          </div>
         </div>
+
         <div className="profile-panel" aria-label="Portfolio summary">
-          <span className="profile-initials">EV</span>
+          <img
+            className="profile-initials"
+            src="/assets/images/profile.jpg"
+            alt="Profile picture"
+          />
           <div>
-            <p className="profile-role">Frontend Developer</p>
-            <p className="profile-location">React • TypeScript • UI/UX</p>
+            <p className="profile-role">Full Stack Developer</p>
+            <p className="profile-location">
+              Laravel, PHP, React, React Native (Expo), MySQL
+            </p>
           </div>
         </div>
       </section>

@@ -13,7 +13,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <header className="site-header">
         <NavLink className="brand" to="/" aria-label="Portfolio home">
           <span>MH</span>
-          Portfolio
+          Myo Htet Kyaw
         </NavLink>
         <div className="flex gap-3">
           <nav className="nav-links" aria-label="Main navigation">
