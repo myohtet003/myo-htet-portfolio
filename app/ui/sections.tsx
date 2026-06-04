@@ -362,7 +362,7 @@ export function ContactSection({ compact = false }: SectionProps) {
         <aside className="contact-card">
           <CardHeading>Contact Details</CardHeading>
           <p>Email</p>
-          <a href="mailto:hello@example.com">hello@example.com</a>
+          <a href="mailto:myohtetkyaw2003@gmail.com">myohtetkyaw2003@gmail.com</a>
           <p>Phone</p>
           <a href="tel:+959762256122">+95 9 762 256 122</a>
           <p>Location</p>
