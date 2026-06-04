@@ -16,7 +16,7 @@ const timeline = [
     highlights: [
       "Build and maintain the company website and student application portal using Laravel, MySQL, and modern frontend workflows.",
       "Handle hosting and deployment tasks with Hostinger, including site updates, domain setup, and production maintenance.",
-      "Implement backend workflows, admin tools, and database structures for real-world education operations.", 
+      "Implement backend workflows, admin tools, and database structures for real-world education operations.",
     ],
   },
   {
@@ -25,9 +25,9 @@ const timeline = [
     location: "Remote",
     period: "2024 - 2025",
     highlights: [
-      "Delivered systems including ZabuHein nurse rental platform, government road charts, and student management tools.",
-      "Developed Laravel, PHP, MySQL, JavaScript, and Bootstrap features from planning through handoff.",
-      "Created dashboards, reporting screens, booking flows, and admin management interfaces.",
+      "Delivered custom web applications including ZabuHein (nurse rental platform), a government road management system, and a POS barcode system.",
+      "Designed and developed full-stack features using Laravel, PHP, MySQL, JavaScript, React Native (Expo), and Bootstrap.",
+      "Built dashboards, reporting tools, barcode generation modules, booking workflows, and admin management panels.",
     ],
   },
   {
@@ -362,7 +362,9 @@ export function ContactSection({ compact = false }: SectionProps) {
         <aside className="contact-card">
           <CardHeading>Contact Details</CardHeading>
           <p>Email</p>
-          <a href="mailto:myohtetkyaw2003@gmail.com">myohtetkyaw2003@gmail.com</a>
+          <a href="mailto:myohtetkyaw2003@gmail.com">
+            myohtetkyaw2003@gmail.com
+          </a>
           <p>Phone</p>
           <a href="tel:+959762256122">+95 9 762 256 122</a>
           <p>Location</p>
