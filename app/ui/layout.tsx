@@ -30,15 +30,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          <nav className="nav-links" aria-label="Main navigation">
-            <NavLink className="nav-link" to="/resume" aria-label="View resume">
-              Resume
-            </NavLink>
+          <nav className="nav-links" aria-label="Main navigation"> 
+              <a
+                href="/myo htet kyaw.pdf"
+                aria-label="View resume"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link"
+              >
+                Resume
+              </a> 
           </nav>
         </div>
       </header>
 
       <main className="site-main">{children}</main>
+
+      <footer className="site-footer">
+        <p>@myohtetkyaw</p>
+      </footer>
     </div>
   );
 }
