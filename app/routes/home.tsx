@@ -71,7 +71,7 @@ export default function Home() {
         <div className="profile-panel" aria-label="Portfolio summary">
           <img
             className="profile-initials"
-            src="/assets/images/profile.jpg"
+            src="/images/profile.jpg"
             alt="Profile picture"
           />
           <div>

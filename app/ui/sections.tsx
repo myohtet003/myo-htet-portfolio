@@ -49,7 +49,7 @@ const projects = [
     category: "Business Operations",
     description:
       "A full-stack POS reporting system with barcode support, sales tracking, and admin dashboard for business operations.",
-    image: "/assets/images/pos.png",
+    image: "/images/pos.png",
     technologies: ["PHP", "Laravel", "MySQL", "React Native (Expo)"],
   },
   {
@@ -65,7 +65,7 @@ const projects = [
     category: "Healthcare Booking Platform",
     description:
       "A nurse rental platform connecting healthcare providers with available nurses, including booking, scheduling, and admin management features.",
-    image: "/assets/images/nurserent.png",
+    image: "/images/nurserent.png",
     technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
   },
 ];
