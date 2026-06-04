@@ -16,8 +16,7 @@ const timeline = [
     highlights: [
       "Build and maintain the company website and student application portal using Laravel, MySQL, and modern frontend workflows.",
       "Handle hosting and deployment tasks with Hostinger, including site updates, domain setup, and production maintenance.",
-      "Implement backend workflows, admin tools, and database structures for real-world education operations.",
-      // "Collaborate across requirements, testing, and deployment to keep business features reliable.",
+      "Implement backend workflows, admin tools, and database structures for real-world education operations.", 
     ],
   },
   {
