@@ -261,7 +261,7 @@ textarea {
 }
 
 .profile-initials {
-  aspect-ratio: 8/9;
+  aspect-ratio: 7/9;
   border-radius: 8px;
   font-size: 4rem;
   width: min(100%, 18rem);
