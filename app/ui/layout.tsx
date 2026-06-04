@@ -32,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           <nav className="nav-links" aria-label="Main navigation"> 
               <a
-                href="/myo htet kyaw.pdf"
+                href="/myohtetkyaw.pdf"
                 aria-label="View resume"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -58,7 +58,7 @@ export default function Home() {
               LinkedIn
             </a>
             <a
-              href="/myo htet kyaw.pdf"
+              href="/myohtetkyaw.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="social-link"
