@@ -148,8 +148,7 @@ textarea {
 
 .site-footer {
   border-top: 1px solid rgba(29, 38, 48, 0.08);
-  color: #59656f;
-  margin: 0 auto;
+  color: #59656f; 
   max-width: 1120px;
   padding: 1.5rem;
   text-align: center;
