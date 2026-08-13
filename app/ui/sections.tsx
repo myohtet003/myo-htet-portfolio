@@ -58,7 +58,7 @@ const projects = [
     description:
       "Data visualization system for road infrastructure monitoring using charts and reporting dashboards.",
     confidential: true,
-    technologies: ["Laravel", "Chart.js", "MySQL", "Bootstrap"],
+    technologies: ["PHP", "Laravel", "Chart.js", "MySQL", "Bootstrap"],
   },
   {
     title: "ZabuHein Nurse Rental Platform",
