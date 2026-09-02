@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import { NavLink } from "react-router";
 import { Layout } from "~/ui/layout";
 import { AboutSection, ContactSection, ExperienceSection } from "~/ui/sections";
+import { TextType } from "~/ui/text-type";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -21,7 +22,13 @@ export default function Home() {
           <p className="eyebrow">Available for full-time / contract roles</p>
 
           <h1>
-            Hi, I'm <span className="text-[#245d63]">Myo Htet</span>
+            Hi, I'm{" "}
+            <TextType
+              className="accent-text"
+              pauseDuration={1800}
+              text="Myo Htet"
+              typingSpeed={110}
+            />
           </h1>
 
           <p className="hero-text">
@@ -72,7 +79,7 @@ export default function Home() {
           <img
             className="profile-initials"
             src="/images/profile.jpg"
-            alt="Profile picture"
+            alt="Myo Htet Kyaw"
           />
           <div>
             <p className="profile-role">Full Stack Developer</p>

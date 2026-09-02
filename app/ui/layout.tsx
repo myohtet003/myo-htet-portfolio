@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import { NavLink } from "react-router";
+import { TargetCursor } from "~/ui/target-cursor";
 
 const navigation = [
   { label: "Home", to: "/" },
@@ -7,7 +10,34 @@ const navigation = [
   { label: "Contact", to: "/contact" },
 ];
 
+type ThemeMode = "light" | "dark";
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<ThemeMode>("light");
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("portfolio-theme");
+
+    if (savedTheme === "light" || savedTheme === "dark") {
+      setTheme(savedTheme);
+      document.documentElement.dataset.theme = savedTheme;
+      return;
+    }
+
+    document.documentElement.dataset.theme = "light";
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((currentTheme) =>
+      currentTheme === "light" ? "dark" : "light",
+    );
+  };
+
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -41,6 +71,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Resume
               </a> 
           </nav>
+
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+            aria-pressed={theme === "dark"}
+          >
+            <span className="theme-toggle-icon" aria-hidden="true">
+              {theme === "light" ? <Sun size={16} /> : <Moon size={16} />}
+            </span>
+          </button>
         </div>
       </header>
 
@@ -49,6 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <footer className="site-footer">
         <p>@myohtetkyaw</p>
       </footer>
+      <TargetCursor />
     </div>
   );
 }
