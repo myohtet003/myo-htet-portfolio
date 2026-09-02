@@ -1,8 +1,4 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useId, useMemo, useState } from "react";
-
-gsap.registerPlugin(useGSAP);
+import { useEffect, useId, useMemo, useState } from "react";
 
 type TextTypeProps = {
   text: string | string[];
@@ -29,43 +25,59 @@ export function TextType({
   const instanceId = useId();
   const phrases = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
 
-  useGSAP(
-    () => {
+  useEffect(() => {
+    let isMounted = true;
+    let timeline: { kill: () => void } | undefined;
+
+    void import("gsap").then(({ default: gsap }) => {
+      if (!isMounted) {
+        return;
+      }
+
       const progress = { value: 0 };
-      const timeline = gsap.timeline({ repeat: loop ? -1 : 0 });
+      const nextTimeline = gsap.timeline({ repeat: loop ? -1 : 0 });
+      timeline = nextTimeline;
 
       phrases.forEach((phrase, index) => {
-        timeline
+        nextTimeline
           .set(progress, {
             value: 0,
-            onUpdate: () => setDisplayedText(""),
+            onUpdate: () => {
+              if (isMounted) setDisplayedText("");
+            },
           })
           .to(progress, {
             duration: Math.max(phrase.length * typingSpeed, typingSpeed) / 1000,
             ease: "none",
             onUpdate: () => {
-              setDisplayedText(phrase.slice(0, Math.ceil(progress.value)));
+              if (isMounted) {
+                setDisplayedText(phrase.slice(0, Math.ceil(progress.value)));
+              }
             },
             value: phrase.length,
           })
           .to({}, { duration: pauseDuration / 1000 });
 
         if (loop || index < phrases.length - 1) {
-          timeline.to(progress, {
+          nextTimeline.to(progress, {
             duration: Math.max(phrase.length * deletingSpeed, deletingSpeed) / 1000,
             ease: "none",
             onUpdate: () => {
-              setDisplayedText(phrase.slice(0, Math.ceil(progress.value)));
+              if (isMounted) {
+                setDisplayedText(phrase.slice(0, Math.ceil(progress.value)));
+              }
             },
             value: 0,
           });
         }
       });
+    });
 
-      return () => timeline.kill();
-    },
-    { dependencies: [deletingSpeed, loop, pauseDuration, phrases, typingSpeed] },
-  );
+    return () => {
+      isMounted = false;
+      timeline?.kill();
+    };
+  }, [deletingSpeed, loop, pauseDuration, phrases, typingSpeed]);
 
   return (
     <span className={className} aria-labelledby={instanceId}>
