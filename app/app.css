@@ -628,10 +628,62 @@ textarea {
   margin: 0;
 }
 
-.projects-grid {
-  display: grid;
+.projects-carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.projects-track {
+  display: flex;
   gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  transform: translateX(
+    calc(
+      -1 *
+        var(--active-project) *
+        (
+          (100% - (var(--visible-projects) - 1) * 1rem) /
+            var(--visible-projects) +
+            1rem
+        )
+    )
+  );
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-track.without-transition {
+  transition: none;
+}
+
+.carousel-dots {
+  align-items: center;
+  display: flex;
+  gap: 0.45rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.carousel-dot {
+  background: var(--color-border-strong);
+  border-radius: 999px;
+  display: block;
+  height: 0.55rem;
+  transition:
+    background 180ms ease,
+    transform 180ms ease,
+    width 180ms ease;
+  width: 0.55rem;
+}
+
+.carousel-dot.active {
+  background: var(--color-accent);
+  transform: scale(1.15);
+  width: 1.6rem;
+}
+
+.project-slide {
+  display: flex;
+  flex: 0 0 calc((100% - 2rem) / 3);
+  min-width: 0;
 }
 
 .project-card {
@@ -640,7 +692,9 @@ textarea {
   border-radius: 8px;
   box-shadow: 0 18px 55px var(--color-shadow-soft);
   display: grid;
+  height: 100%;
   overflow: hidden;
+  width: 100%;
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -763,6 +817,7 @@ textarea {
 .project-content {
   display: grid;
   gap: 0.8rem;
+  grid-template-rows: auto auto 1fr auto;
   padding: 1.25rem;
 }
 
@@ -1098,8 +1153,8 @@ textarea {
     justify-self: start;
   }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .project-slide {
+    flex-basis: calc((100% - 1rem) / 2);
   }
 
   .hero-section {
@@ -1107,9 +1162,15 @@ textarea {
   }
 }
 
-@media (min-width: 761px) and (max-width: 980px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 760px) {
+  .project-slide {
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-track {
+    transition: none;
   }
 }
 

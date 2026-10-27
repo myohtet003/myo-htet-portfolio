@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import { useEffect, useState } from "react";
+import type { CSSProperties, ChangeEvent, FormEvent } from "react";
 
 const aboutStats = [
   { value: "2+", label: "Years practice" },
@@ -115,6 +115,7 @@ export function AboutSection({ compact = false }: SectionProps) {
             ))}
           </div>
         </div>
+
       </section>
     </>
   );
@@ -125,6 +126,44 @@ export function ExperienceSection({ compact = false }: SectionProps) {
   const itemHeadingTag = compact ? "h3" : "h2";
   const Heading = headingTag;
   const ItemHeading = itemHeadingTag;
+  const [activeProject, setActiveProject] = useState(0);
+  const [visibleProjects, setVisibleProjects] = useState(3);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const [isProjectHovered, setIsProjectHovered] = useState(false);
+
+  useEffect(() => {
+    const updateVisibleProjects = () => {
+      const nextVisibleProjects =
+        window.innerWidth <= 760 ? 1 : window.innerWidth <= 980 ? 2 : 3;
+
+      setVisibleProjects(nextVisibleProjects);
+      setActiveProject((current) =>
+        Math.min(current, Math.max(projects.length - nextVisibleProjects, 0)),
+      );
+    };
+
+    updateVisibleProjects();
+    window.addEventListener("resize", updateVisibleProjects);
+
+    return () => window.removeEventListener("resize", updateVisibleProjects);
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    if (isProjectHovered) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setTransitionEnabled(true);
+      setActiveProject((current) => current + 1);
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, [isProjectHovered, visibleProjects]);
 
   return (
     <>
@@ -186,44 +225,76 @@ export function ExperienceSection({ compact = false }: SectionProps) {
           </p>
         </div>
 
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <article className="project-card" key={project.title}>
-              {project.confidential ? (
-                <div className="project-image-frame confidential-preview">
-                  <div className="confidential-chart" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
+        <div
+          className="projects-carousel"
+          aria-label="Selected projects carousel"
+          onMouseEnter={() => setIsProjectHovered(true)}
+          onMouseLeave={() => setIsProjectHovered(false)}
+        >
+          <div
+            className={`projects-track${transitionEnabled ? "" : " without-transition"}`}
+            style={{
+              "--active-project": activeProject,
+              "--visible-projects": visibleProjects,
+            } as CSSProperties}
+            onTransitionEnd={() => {
+              if (activeProject === projects.length) {
+                setTransitionEnabled(false);
+                setActiveProject(0);
+                window.requestAnimationFrame(() => setTransitionEnabled(true));
+              }
+            }}
+          >
+            {[...projects, ...projects.slice(0, visibleProjects)].map(
+              (project) => (
+                <article className="project-slide" key={project.title}>
+                  <div className="project-card">
+                    {project.confidential ? (
+                      <div className="project-image-frame confidential-preview">
+                        <div className="confidential-chart" aria-hidden="true">
+                          <span />
+                          <span />
+                          <span />
+                          <span />
+                        </div>
+                        <div>
+                          <strong>Road Infrastructure Dashboard</strong>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="project-image-frame">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} screenshot`}
+                          className="project-image"
+                        />
+                      </div>
+                    )}
+
+                    <div className="project-content">
+                      <p className="project-category">{project.category}</p>
+                      <h3>{project.title}</h3>
+                      <p>{project.description}</p>
+                      <div className="tech-stack">
+                        {project.technologies.map((tech) => (
+                          <span key={tech}>{tech}</span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <strong>Road Infrastructure Dashboard</strong>
-                  </div>
-                </div>
-              ) : (
-                <div className="project-image-frame">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} screenshot`}
-                    className="project-image"
-                  />
-                </div>
-              )}
+                </article>
+              ),
+            )}
+          </div>
+        </div>
 
-              <div className="project-content">
-                <p className="project-category">{project.category}</p>
-                <h3>{project.title}</h3>
-
-                <p>{project.description}</p>
-
-                <div className="tech-stack">
-                  {project.technologies.map((tech) => (
-                    <span key={tech}>{tech}</span>
-                  ))}
-                </div>
-              </div>
-            </article>
+        <div className="carousel-dots" aria-label="Project carousel position">
+          {projects.map((project, index) => (
+            <span
+              className={`carousel-dot${index === activeProject % projects.length ? " active" : ""}`}
+              key={project.title}
+              aria-label={`Project ${index + 1} of ${projects.length}`}
+            />
           ))}
         </div>
       </section>
