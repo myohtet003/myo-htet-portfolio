@@ -2,15 +2,22 @@ import type { Route } from "./+types/home";
 import { NavLink } from "react-router";
 import { Layout } from "~/ui/layout";
 import { AboutSection, ContactSection, ExperienceSection } from "~/ui/sections";
-import { TextType } from "~/ui/text-type";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Portfolio | Home" },
+    { title: "Myo Htet Kyaw | Full Stack Developer (Laravel + React)" },
     {
       name: "description",
-      content: "A clean and professional developer portfolio.",
+      content:
+        "Portfolio of Myo Htet Kyaw, a Full Stack Developer building Laravel and React applications for business workflows, dashboards, and mobile experiences.",
     },
+    { property: "og:title", content: "Myo Htet Kyaw | Full Stack Developer" },
+    {
+      property: "og:description",
+      content:
+        "Laravel and React full-stack developer building practical business systems.",
+    },
+    { property: "og:image", content: "/images/profile.jpg" },
   ];
 }
 
@@ -19,32 +26,25 @@ export default function Home() {
     <Layout>
       <section className="hero-section" id="home">
         <div className="hero-copy">
-          <p className="eyebrow">Available for full-time / contract roles</p>
+          <p className="eyebrow">Open to full-time Laravel + React roles</p>
 
           <h1>
-            Hi, I'm{" "}
-            <TextType
-              className="accent-text"
-              pauseDuration={1800}
-              text="Myo Htet"
-              typingSpeed={110}
-            />
+            Hi, I'm <span className="accent-text">Myo Htet Kyaw</span>
           </h1>
 
           <p className="hero-text">
-            Full Stack Developer specializing in Laravel, PHP, React, and React
-            Native (Expo). I build scalable web and mobile systems including POS
-            platforms, business tools, and dashboards with a focus on clean
-            architecture, performance, and maintainability.
+            I build Laravel and React applications that turn business workflows
+            into clear, reliable tools - from dashboards and POS reporting to
+            booking systems and mobile experiences.
           </p>
 
           <div className="hero-actions">
             <NavLink className="button primary" to="/contact">
               Contact me
             </NavLink>
-            <NavLink className="button secondary" to="/experience">
-              View experience
-            </NavLink>
+            <a className="button secondary" href="#projects">
+              View projects
+            </a>
           </div>
 
           <div className="flex gap-4 italic underline pt-2 mt-2">

@@ -4,10 +4,11 @@ import { ExperienceSection } from "~/ui/sections";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Portfolio | Experience" },
+    { title: "Experience & Projects | Myo Htet Kyaw" },
     {
       name: "description",
-      content: "A simple overview of frontend development experience.",
+      content:
+        "Full stack development experience across Laravel, React, business systems, reporting dashboards, and mobile apps.",
     },
   ];
 }

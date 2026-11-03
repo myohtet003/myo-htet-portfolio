@@ -4,10 +4,11 @@ import { ContactSection } from "~/ui/sections";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Portfolio | Contact" },
+    { title: "Contact Myo Htet Kyaw | Full Stack Developer" },
     {
       name: "description",
-      content: "Get in touch for frontend development opportunities.",
+      content:
+        "Contact Myo Htet Kyaw about full-time Laravel and React development opportunities.",
     },
   ];
 }

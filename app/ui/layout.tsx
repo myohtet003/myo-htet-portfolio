@@ -7,6 +7,7 @@ const navigation = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Experience", to: "/experience" },
+  { label: "Projects", to: "/#projects" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -16,26 +17,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<ThemeMode>("light");
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("portfolio-theme");
-
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setTheme(savedTheme);
-      document.documentElement.dataset.theme = savedTheme;
-      return;
+    let savedTheme = document.documentElement.dataset.theme;
+    try {
+      savedTheme = window.localStorage.getItem("portfolio-theme") ?? savedTheme;
+    } catch {
+      // Keep the current document theme when browser storage is unavailable.
     }
-
-    document.documentElement.dataset.theme = "light";
+    const restoredTheme = savedTheme === "dark" ? "dark" : "light";
+    setTheme(restoredTheme);
+    document.documentElement.dataset.theme = restoredTheme;
   }, []);
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem("portfolio-theme", theme);
-  }, [theme]);
-
   const toggleTheme = () => {
-    setTheme((currentTheme) =>
-      currentTheme === "light" ? "dark" : "light",
-    );
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    document.documentElement.dataset.theme = nextTheme;
+    try {
+      window.localStorage.setItem("portfolio-theme", nextTheme);
+    } catch {
+      // Theme switching still works for this visit without browser storage.
+    }
   };
 
   return (

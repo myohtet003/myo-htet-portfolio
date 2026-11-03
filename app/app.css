@@ -530,6 +530,47 @@ textarea {
   margin-top: 0.35rem;
 }
 
+.skills-section {
+  margin-top: 3.5rem;
+}
+
+.skills-intro {
+  margin-bottom: 1.5rem;
+  max-width: 680px;
+}
+
+.skills-intro h2 {
+  color: var(--color-heading);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+}
+
+.skills-intro p:last-child {
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.skills-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skills-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.35rem;
+}
+
+.skills-card h3 {
+  color: var(--color-heading);
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+
 .content-grid,
 .contact-layout {
   display: grid;
@@ -682,11 +723,12 @@ textarea {
 
 .project-slide {
   display: flex;
-  flex: 0 0 calc((100% - 2rem) / 3);
+  flex: 0 0 calc((100% - (var(--visible-projects) - 1) * 1rem) / var(--visible-projects));
   min-width: 0;
 }
 
 .project-card {
+  position: relative;
   background: var(--color-surface-strong);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -814,11 +856,114 @@ textarea {
   transform: scale(1.035);
 }
 
+.project-image-contain {
+  object-fit: contain;
+  object-position: center;
+}
+
+.project-card:hover .project-image-contain {
+  transform: none;
+}
+
 .project-content {
   display: grid;
   gap: 0.8rem;
   grid-template-rows: auto auto 1fr auto;
   padding: 1.25rem;
+}
+
+.project-card-trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+}
+
+.project-card-trigger:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -4px;
+}
+
+.project-summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.project-card .project-image-frame {
+  aspect-ratio: 16 / 9;
+}
+
+.project-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  box-sizing: border-box;
+  width: min(720px, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface-solid);
+  color: var(--color-text);
+  box-shadow: 0 24px 80px var(--color-shadow);
+}
+
+.project-dialog::backdrop {
+  background: rgb(0 0 0 / 65%);
+  backdrop-filter: blur(5px);
+  cursor: default;
+}
+
+/* Native dialogs render above the custom cursor in the browser's top layer. */
+body:has(.project-dialog[open]),
+body:has(.project-dialog[open]) * {
+  cursor: auto !important;
+}
+
+body:has(.project-dialog[open]) .target-cursor {
+  display: none;
+}
+
+.project-dialog[open] button,
+.project-dialog[open] a {
+  cursor: pointer !important;
+}
+
+.project-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-dialog-header .eyebrow {
+  margin: 0;
+}
+
+.project-dialog h2 {
+  color: var(--color-heading);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+  margin: 1.25rem 0;
+}
+
+.project-dialog-image {
+  display: block;
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.project-dialog > .tech-stack {
+  margin: 1.5rem 0;
 }
 
 .project-content .project-category {
@@ -842,6 +987,48 @@ textarea {
   font-size: 0.95rem;
   line-height: 1.65;
   margin: 0;
+}
+
+.project-details {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+}
+
+.project-details div {
+  border-left: 2px solid var(--color-accent-line);
+  padding-left: 0.7rem;
+}
+
+.project-details dt {
+  color: var(--color-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-details dd,
+.project-note {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0.25rem 0 0;
+}
+
+.project-note {
+  background: var(--color-accent-soft);
+  border-radius: 6px;
+  padding: 0.65rem 0.75rem;
+}
+
+.project-link {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 800;
+  justify-self: start;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .tech-stack {
@@ -1118,6 +1305,10 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
   .timeline {
     gap: 1.5rem;
   }
@@ -1153,20 +1344,12 @@ textarea {
     justify-self: start;
   }
 
-  .project-slide {
-    flex-basis: calc((100% - 1rem) / 2);
-  }
 
   .hero-section {
     min-height: auto;
   }
 }
 
-@media (max-width: 760px) {
-  .project-slide {
-    flex-basis: 100%;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .projects-track {

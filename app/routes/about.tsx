@@ -4,10 +4,11 @@ import { AboutSection } from "~/ui/sections";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Portfolio | About" },
+    { title: "About Myo Htet Kyaw | Laravel + React Developer" },
     {
       name: "description",
-      content: "Learn more about my approach, skills, and professional focus.",
+      content:
+        "Learn about Myo Htet Kyaw's Laravel, React, PHP, MySQL, and React Native development skills and production workflow.",
     },
   ];
 }
